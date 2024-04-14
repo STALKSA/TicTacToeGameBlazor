@@ -1,0 +1,35 @@
+﻿<div>Победитель: @board.GetGameResult(out winCells)</div>
+
+<div class="tictactoe-board">
+    @for (int column = 0; column < board.ColumnCount; column++)
+    {
+        <div class="tictacttoe-column">
+            @for (int row = 0; row < board.RowCount; row++)
+            {
+                CellState cell = board.Cells[row, column];
+                var savedRow = row;
+                var savedColumn = column;
+                ;
+                bool isWinCell = winCells.Contains(new CellPosition(row, column));
+                <div class="tictactoe-cell
+                    tictactoe-cell-@cell.ToString()"
+                    @onclick="() => CellClick(savedRow, savedColumn)">
+                    <div style="font-size: 200%; color: green">
+                        @(isWinCell ? "✓" : "")
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@code {
+    CellPosition[] winCells = new CellPosition[0];
+    Board board = new Board();
+
+    // Задание: Перенест логику из CellClick в NextTurn
+    void CellClick(int row, int column)
+    {
+        board.NextTurn(row, column);
+    }
+}
